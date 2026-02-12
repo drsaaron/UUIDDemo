@@ -15,4 +15,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PersonDataRepository extends JpaRepository<PersonData, UUID> {
     
+    public PersonData findByLastName(String lastName);
 }

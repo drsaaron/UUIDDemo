@@ -47,6 +47,8 @@ public class DumpRawDataCommandLineRunner implements CommandLineRunner {
         private String name;
         private String state;
         private String type;
+        
+        private String presidentId;
     }
 
     @Autowired
@@ -85,6 +87,12 @@ public class DumpRawDataCommandLineRunner implements CommandLineRunner {
         s.setName(rs.getString("name"));
         s.setState(rs.getString("state"));
         s.setType(rs.getString("type"));
+        
+        // deal with the UUID
+        byte[] uuidBytes = rs.getBytes("president_id");
+        UUID uuid = getUuidFromByteArray(uuidBytes);
+        s.setPresidentId(uuid.toString());
+        
         return s;
     }
 

@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,9 +35,14 @@ public class SchoolData {
     @Column(length = 2) private String state;
     private String type;
     
-    public SchoolData(String name, String state, String type) {
+    public SchoolData(String name, String state, String type, PersonData president) {
         this.name = name;
         this.state = state;
         this.type = type;
+        this.president = president;
     }
+    
+    @ManyToOne
+    @JoinColumn(name = "president_id")
+    private PersonData president;
 }

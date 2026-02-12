@@ -4,6 +4,8 @@
  */
 package com.blazartech.uuiddemo;
 
+import com.blazartech.uuiddemo.data.PersonData;
+import com.blazartech.uuiddemo.data.PersonDataRepository;
 import com.blazartech.uuiddemo.data.SchoolData;
 import com.blazartech.uuiddemo.data.SchoolDataRepository;
 import java.util.List;
@@ -25,13 +27,19 @@ public class LoadSchoolDataCommandLineRunner implements CommandLineRunner {
     @Autowired
     private SchoolDataRepository repo;
     
+    @Autowired
+    private PersonDataRepository personRepo;
+    
     @Override
     public void run(String... args) throws Exception {
         log.info("adding school data");
         
+        PersonData aaron = personRepo.findByLastName("Aaron");
+        PersonData vanHalen = personRepo.findByLastName("van Halen");
+        
         List<SchoolData> schools = List.of(
-                new SchoolData("Western Maryland College", "MD", "college"),
-                new SchoolData("Brandeis University", "MA", "university")
+                new SchoolData("Western Maryland College", "MD", "college", aaron),
+                new SchoolData("Brandeis University", "MA", "university", vanHalen)
         );
         
         schools.stream()
